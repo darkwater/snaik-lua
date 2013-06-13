@@ -341,6 +341,7 @@ function love.keypressed(key, unicode)
         end
         if key == "return" then
             menu.direct.doconnect()
+            menu.direct.ipbox.active = false
         end
     end
 
