@@ -12,6 +12,7 @@ function love.load()
     require "net"
     require "shaders"
     require "menu"
+    require "scoreboard"
 
 
     game.fonts = {}
@@ -255,6 +256,11 @@ function love.draw()
 
 
         net.debug()
+
+
+        if love.keyboard.isDown("tab") then
+            scores.draw()
+        end
     end
 
     if shaders.menu_background.alpha > 0.01 then
