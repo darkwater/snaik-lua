@@ -1,6 +1,10 @@
 function love.load()
     game = {}
 
+    game.debug = {
+        show_joystick = false
+    }
+
     game.time = 0
 
     require "json"
@@ -279,7 +283,7 @@ function love.draw()
     end
 
 
-    if love.joystick.isOpen(1) then
+    if game.debug.show_joystick and love.joystick.isOpen(1) then
         local x,y = love.joystick.getAxes(1)
         love.graphics.setColor(255, 255, 255)
         love.graphics.setPointSize(5)
