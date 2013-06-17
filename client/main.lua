@@ -2,7 +2,8 @@ function love.load()
     game = {}
 
     game.debug = {
-        show_joystick = false
+        show_joystick = false,
+        show_net = false
     }
 
     game.time = 0
@@ -197,12 +198,12 @@ function love.draw()
             local fx = food.x*game.block_size
             local fy = food.y*game.block_size
 
-            if game.snaiks[game.our_id].connected then
-                local sx = game.snaiks[game.our_id].blocks[1].x * game.block_size
-                local sy = game.snaiks[game.our_id].blocks[1].y * game.block_size
+            -- if game.snaiks[game.our_id].connected then
+            --     local sx = game.snaiks[game.our_id].blocks[1].x * game.block_size
+            --     local sy = game.snaiks[game.our_id].blocks[1].y * game.block_size
 
-                love.graphics.line(fx, fy, sx, sy)
-            end
+            --     love.graphics.line(fx, fy, sx, sy)
+            -- end
 
             love.graphics.rectangle("fill", fx - game.block_size/2,
                                             fy - game.block_size/2,
@@ -255,10 +256,12 @@ function love.draw()
         end
 
 
-        net.debug()
+        if game.debug.show_net then
+            net.debug()
+        end
 
 
-        if love.keyboard.isDown("tab") then
+        if love.keyboard.isDown("tab") or love.joystick.isDown(1, 7) then
             scores.draw()
         end
     end
@@ -398,7 +401,7 @@ function love.joystickpressed(joy, but)
         elseif but == 2 then
             menu.quit.visible = false
         end
-    elseif but >= 7 and but <= 9 then
+    elseif but == 8 or but == 9 then
         menu.quit.visible = true
     end
 end
