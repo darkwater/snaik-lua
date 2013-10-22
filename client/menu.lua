@@ -92,30 +92,30 @@ end
 
 
 function menu.load()
-    local data = http.request("http://api.novaember.com/snaik/serverlist")
-    if data then
-        data = json.decode(data)
-        menu.servers = data
-
-        menu.pingthread = love.thread.newThread("pingthread", "thread_ping.lua")
-        menu.pingthread:start()
-
-        menu.pingthread:set("count", #data)
-
-        for k,v in pairs(menu.servers) do
-            menu.pingthread:set("ip" .. k, v.ip)
-            menu.pingthread:set("port" .. k, v.port)
-
-            v.ping = 0
-            v.maxplayers = "?"
-            v.players = "?"
-
-            v.hoveranim = 0
-        end
-    else
-        menu.titletext = "Error"
-        menu.subtitletext = "Could not connect to master server"
-    end
+--    local data = http.request("http://api.novaember.com/snaik/serverlist")
+--    if data then
+--         data = json.decode(data)
+         menu.servers = { { name= "Novaember", ip= "novaember.com", port= 7182 } }
+ 
+         menu.pingthread = love.thread.newThread("pingthread", "thread_ping.lua")
+         menu.pingthread:start()
+ 
+         menu.pingthread:set("count", #menu.servers)
+ 
+         for k,v in pairs(menu.servers) do
+             menu.pingthread:set("ip" .. k, v.ip)
+             menu.pingthread:set("port" .. k, v.port)
+ 
+             v.ping = 0
+             v.maxplayers = "?"
+             v.players = "?"
+ 
+             v.hoveranim = 0
+         end
+--     else
+--         menu.titletext = "Error"
+--         menu.subtitletext = "Could not connect to master server"
+--     end
 end
 
 function menu.update(dt)
