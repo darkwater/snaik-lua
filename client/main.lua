@@ -325,7 +325,7 @@ function love.keypressed(key, unicode)
         return
     end
 
-    local char = string.char(unicode)
+    local char = string.char(unicode or 0)
 
     if menu.namebox.active then
         if char:match("^[%w ]$") and #menu.namebox.name < 15 then
